@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[3]:
 
 
 def pilot(url):
@@ -89,6 +89,7 @@ def pilot(url):
         cats = soup.find_all('div',{'class': 'card collapse-header'})
 
         #returns titles and links to all platforms
+        
         titles = []
         links = []
         for i in range(len(cats)):
@@ -103,8 +104,10 @@ def pilot(url):
                 link = re.search('/(.+?)"',link)
                 link = str(link.group(1))
                 links.append(link)
+        print('Platforms Found')
 
         #searches through data of each platform page
+        print('Loading Sales Data..........')
         games = []
         for link in range(len(links)):
             try:
@@ -113,6 +116,7 @@ def pilot(url):
                 data = json.loads(data)
                 games.append(data)
             except:
+                print(links[link]+' failed')
                 pass
         
         #clean data
@@ -153,14 +157,14 @@ def pilot(url):
     return(df)
 
 
-# In[2]:
+# In[4]:
 
 
 url = 'https://gamevaluenow.com/#allPlatforms'
 pilot(url)
 
 
-# In[ ]:
+# In[5]:
 
 
 with open(r"""/Users/aidanmark/Desktop/Dibbs/Data/private_keys/snf_keys.json""") as f:
